@@ -651,6 +651,10 @@ public class AddressBook {
         return String.format(MESSAGE_UPDATEPHONE_PERSON_SUCCESS, getMessageForFormattedPersonData(person));
     }
 
+    private static boolean changePersonPhoneInAddressBook(HashMap<String, String> targetInModel) {
+        return false;
+    }
+
     /*
      * ===========================================
      *               UI LOGIC
