@@ -610,22 +610,21 @@ public class AddressBook {
      * @return Feedback display message for the operation result.
      */
     private static String executeUpdatePhone(String commandArgs) {
-        if (!isUpdatePersonArgsValid(commandArgs)) {
+        String[] args = commandArgs.split("\\s");
+        if (!isUpdatePersonArgsValid(args[0], args[1])) {
             return getMessageForInvalidCommandInput(COMMAND_UPDATEPHONE_WORD, getUsageInfoForUpdateCommand());
         }
         final int targetVisibleIndex = extractTargetUpdateIndex(commandArgs);
         if (!isDisplayIndexValidForLastPersonListingView(targetVisibleIndex)) {
             return MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         }
-        final String phonenumber = extractPhoneNumber(commandArgs);
         final HashMap<String, String> targetInModel = getPersonByLastVisibleIndex(targetVisibleIndex);
-        return changePersonPhoneInAddressBook(targetInModel, phonenumber) ? getMessageForSuccessfulUpdate(targetInModel) // success
+        return changePersonPhoneInAddressBook(targetInModel, args[1]) ? getMessageForSuccessfulUpdate(targetInModel) // success
                 : MESSAGE_PERSON_NOT_IN_ADDRESSBOOK; // not found
     }
 
-    private static boolean isUpdatePersonArgsValid(String commandArgs) {
-        String[] args = commandArgs.split("\\s");  //splits the string based on whitespace
-        return args[0] != null && isPersonPhoneValid(args[1]);
+    private static boolean isUpdatePersonArgsValid(String index, String number) {
+        return index != null && isPersonPhoneValid(number);
     }
 
     /**
@@ -634,14 +633,8 @@ public class AddressBook {
      * @param commandArgs
      * @return
      */
-    private static int extractTargetUpdateIndex(String commandArgs) {
-        String[] args = commandArgs.split("\\s");
-        return Integer.parseInt(args[0].trim());
-    }
-
-    private static String extractPhoneNumber(String commandArgs) {
-        String[] args = commandArgs.split("\\s");
-        return args[1];
+    private static int extractTargetUpdateIndex(String index) {
+        return Integer.parseInt(index.trim());
     }
 
     /**
