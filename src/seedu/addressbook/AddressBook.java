@@ -648,7 +648,7 @@ public class AddressBook {
      * Shows the list of persons to the user.
      * The list will be indexed, starting from 1.
      *
-     * @param persons
+     * @param persons list of people with data stored as a HashMap.
      */
     private static void showToUser(ArrayList<HashMap<String, String>> persons) {
         String listAsString = getDisplayString(persons);
@@ -658,7 +658,7 @@ public class AddressBook {
 
     /**
      * Returns the display string representation of the list of persons.
-     * @param persons List of people with data stored as a HashMap.
+     * @param persons list of people with data stored as a HashMap.
      */
     private static String getDisplayString(ArrayList<HashMap<String, String>> persons) {
         final StringBuilder messageAccumulator = new StringBuilder();
