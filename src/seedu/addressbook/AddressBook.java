@@ -252,7 +252,7 @@ public class AddressBook {
      * If a valid storage file is specified, sets up that file for storage.
      * Otherwise sets up the default file for storage.
      *
-     * @param args full program arguments passed to application main method
+     * @param args full program arguments passed to application main method.
      */
     private static void processProgramArgs(String[] args) {
         if (args.length >= 2) {
@@ -377,8 +377,8 @@ public class AddressBook {
     /**
      * Executes the command as specified by the {@code userInputString}
      *
-     * @param userInputString  raw input from user
-     * @return  feedback about how the command was executed
+     * @param userInputString  raw input from user.
+     * @return Feedback about how the command was executed.
      */
     private static String executeCommand(String userInputString) {
         final String[] commandTypeAndParams = splitCommandWordAndArgs(userInputString);
@@ -407,7 +407,7 @@ public class AddressBook {
     /**
      * Splits raw user input into command word and command arguments string
      *
-     * @return  size 2 array; first element is the command type and second element is the arguments string
+     * @return  Size 2 array; first element is the command type and second element is the arguments string.
      */
     private static String[] splitCommandWordAndArgs(String rawUserInput) {
         final String[] split =  rawUserInput.trim().split("\\s+", 2);
@@ -417,8 +417,8 @@ public class AddressBook {
     /**
      * Constructs a generic feedback message for an invalid command from user, with instructions for correct usage.
      *
-     * @param correctUsageInfo message showing the correct usage
-     * @return invalid command args feedback message
+     * @param correctUsageInfo message showing the correct usage.
+     * @return Invalid command args feedback message.
      */
     private static String getMessageForInvalidCommandInput(String userCommand, String correctUsageInfo) {
         return String.format(MESSAGE_INVALID_COMMAND_FORMAT, userCommand, correctUsageInfo);
@@ -428,8 +428,8 @@ public class AddressBook {
      * Adds a person (specified by the command args) to the address book.
      * The entire command arguments string is treated as a string representation of the person to add.
      *
-     * @param commandArgs full command args string from the user
-     * @return feedback display message for the operation result
+     * @param commandArgs full command args string from the user.
+     * @return Feedback display message for the operation result.
      */
     private static String executeAddPerson(String commandArgs) {
         // try decoding a person from the raw args
@@ -450,8 +450,8 @@ public class AddressBook {
      * Constructs a feedback message for a successful add person command execution.
      *
      * @see #executeAddPerson(String)
-     * @param addedPerson person who was successfully added
-     * @return successful add person feedback message
+     * @param addedPerson person who was successfully added.
+     * @return Successful add person feedback message.
      */
     private static String getMessageForSuccessfulAddPerson(HashMap<String,String> addedPerson) {
         return String.format(MESSAGE_ADDED,
@@ -462,8 +462,8 @@ public class AddressBook {
      * Finds and lists all persons in address book whose name contains any of the argument keywords.
      * Keyword matching is case sensitive.
      *
-     * @param commandArgs full command args string from the user
-     * @return feedback display message for the operation result
+     * @param commandArgs full command args string from the user.
+     * @return Feedback display message for the operation result.
      */
     private static String executeFindPersons(String commandArgs) {
         final Set<String> keywords = extractKeywordsFromFindPersonArgs(commandArgs);
@@ -475,8 +475,8 @@ public class AddressBook {
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
      *
-     * @param personsDisplayed used to generate summary
-     * @return summary message for persons displayed
+     * @param personsDisplayed used to generate summary.
+     * @return Summary message for persons displayed.
      */
     private static String getMessageForPersonsDisplayedSummary(ArrayList<HashMap<String, String>> personsDisplayed) {
         return String.format(MESSAGE_PERSONS_FOUND_OVERVIEW, personsDisplayed.size());
@@ -485,8 +485,8 @@ public class AddressBook {
     /**
      * Extracts keywords from the command arguments given for the find persons command.
      *
-     * @param findPersonCommandArgs full command args string for the find persons command
-     * @return set of keywords as specified by args
+     * @param findPersonCommandArgs full command args string for the find persons command.
+     * @return Set of keywords as specified by args.
      */
     private static Set<String> extractKeywordsFromFindPersonArgs(String findPersonCommandArgs) {
         return new HashSet<>(splitByWhitespace(findPersonCommandArgs.trim()));
@@ -495,8 +495,8 @@ public class AddressBook {
     /**
      * Retrieves all persons in the full model whose names contain some of the specified keywords.
      *
-     * @param keywords for searching
-     * @return list of persons in full model with name containing some of the keywords
+     * @param keywords for searching.
+     * @return List of persons in full model with name containing some of the keywords.
      */
     private static ArrayList<HashMap<String,String>> getPersonsWithNameContainingAnyKeyword(Collection<String> keywords) {
         final ArrayList<HashMap<String,String>> matchedPersons = new ArrayList<>();
@@ -512,8 +512,8 @@ public class AddressBook {
     /**
      * Deletes person identified using last displayed index.
      *
-     * @param commandArgs full command args string from the user
-     * @return feedback display message for the operation result
+     * @param commandArgs full command args string from the user.
+     * @return Feedback display message for the operation result.
      */
     private static String executeDeletePerson(String commandArgs) {
         if (!isDeletePersonArgsValid(commandArgs)) {
@@ -531,8 +531,8 @@ public class AddressBook {
     /**
      * Checks validity of delete person argument string's format.
      *
-     * @param rawArgs raw command args string for the delete person command
-     * @return whether the input args string is valid
+     * @param rawArgs raw command args string for the delete person command.
+     * @return Whether the input args string is valid.
      */
     private static boolean isDeletePersonArgsValid(String rawArgs) {
         try {
@@ -544,10 +544,10 @@ public class AddressBook {
     }
 
     /**
-     * Extracts the target's index from the raw delete person args string
+     * Extracts the target's index from the raw delete person args string.
      *
-     * @param rawArgs raw command args string for the delete person command
-     * @return extracted index
+     * @param rawArgs raw command args string for the delete person command.
+     * @return Extracted index.
      */
     private static int extractTargetIndexFromDeletePersonArgs(String rawArgs) {
         return Integer.parseInt(rawArgs.trim());
@@ -556,8 +556,8 @@ public class AddressBook {
     /**
      * Checks that the given index is within bounds and valid for the last shown person list view.
      *
-     * @param index to check
-     * @return whether it is valid
+     * @param index to check.
+     * @return Whether it is valid.
      */
     private static boolean isDisplayIndexValidForLastPersonListingView(int index) {
         return index >= DISPLAYED_INDEX_OFFSET && index < latestPersonListingView.size() + DISPLAYED_INDEX_OFFSET;
@@ -567,8 +567,8 @@ public class AddressBook {
      * Constructs a feedback message for a successful delete person command execution.
      *
      * @see #executeDeletePerson(String)
-     * @param deletedPerson successfully deleted
-     * @return successful delete person feedback message
+     * @param deletedPerson successfully deleted.
+     * @return Successful delete person feedback message.
      */
     private static String getMessageForSuccessfulDelete(HashMap<String, String> deletedPerson) {
         return String.format(MESSAGE_DELETE_PERSON_SUCCESS, getMessageForFormattedPersonData(deletedPerson));
@@ -577,7 +577,7 @@ public class AddressBook {
     /**
      * Clears all persons in the address book.
      *
-     * @return feedback display message for the operation result
+     * @return Feedback display message for the operation result.
      */
     private static String executeClearAddressBook() {
         clearAddressBook();
@@ -587,7 +587,7 @@ public class AddressBook {
     /**
      * Displays all persons in the address book to the user; in added order.
      *
-     * @return feedback display message for the operation result
+     * @return Feedback display message for the operation result.
      */
     private static String executeListAllPersonsInAddressBook() {
         ArrayList<HashMap<String,String>> toBeDisplayed = getAllPersonsInAddressBook();
@@ -610,9 +610,9 @@ public class AddressBook {
 
     /**
      * Prompts for the command and reads the text entered by the user.
-     * Ignores lines with first non-whitespace char equal to {@link #INPUT_COMMENT_MARKER} (considered comments)
+     * Ignores lines with first non-whitespace char equal to {@link #INPUT_COMMENT_MARKER} (considered comments).
      *
-     * @return full line entered by the user
+     * @return Full line entered by the user.
      */
     private static String getUserInput() {
         System.out.print(LINE_PREFIX + "Enter command: ");
@@ -632,7 +632,7 @@ public class AddressBook {
      */
 
     /**
-     * Shows a message to the user
+     * Shows a message to the user.
      */
     private static void showToUserMultiple(ArrayList<String> message) {
         for(String m: message) {
@@ -658,6 +658,7 @@ public class AddressBook {
 
     /**
      * Returns the display string representation of the list of persons.
+     *
      * @param persons list of people with data stored as a HashMap.
      */
     private static String getDisplayString(ArrayList<HashMap<String, String>> persons) {
@@ -675,9 +676,9 @@ public class AddressBook {
     /**
      * Constructs a prettified listing element message to represent a person and their data.
      *
-     * @param visibleIndex visible index for this listing
-     * @param person to show
-     * @return formatted listing message with index
+     * @param visibleIndex visible index for this listing.
+     * @param person to show.
+     * @return Formatted listing message with index.
      */
     private static String getIndexedPersonListElementMessage(int visibleIndex, HashMap<String,String> person) {
         return String.format(MESSAGE_DISPLAY_LIST_ELEMENT_INDEX, visibleIndex) + getMessageForFormattedPersonData(person);
@@ -697,7 +698,7 @@ public class AddressBook {
     /**
      * Updates the latest person listing view the user has seen.
      *
-     * @param newListing the new listing of persons
+     * @param newListing the new listing of persons.
      */
     private static void updateLatestViewedPersonListing(ArrayList<HashMap<String, String>> newListing) {
         // clone to insulate from future changes to arg list
@@ -707,8 +708,8 @@ public class AddressBook {
     /**
      * Retrieves the person identified by the displayed index from the last shown listing of persons.
      *
-     * @param lastVisibleIndex displayed index from last shown person listing
-     * @return the actual person object in the last shown person listing
+     * @param lastVisibleIndex displayed index from last shown person listing.
+     * @return The actual person object in the last shown person listing.
      */
     private static HashMap<String, String> getPersonByLastVisibleIndex(int lastVisibleIndex) {
         return latestPersonListingView.get(lastVisibleIndex - DISPLAYED_INDEX_OFFSET);
@@ -724,7 +725,7 @@ public class AddressBook {
     /**
      * Creates storage file if it does not exist. Shows feedback to user.
      *
-     * @param filePath file to create if not present
+     * @param filePath file to create if not present.
      */
     private static void createFileIfMissing(String filePath) {
         final File storageFile = new File(filePath);
@@ -747,8 +748,8 @@ public class AddressBook {
      * Converts contents of a file into a list of persons.
      * Shows error messages and exits program if any errors in reading or decoding was encountered.
      *
-     * @param filePath file to load from
-     * @return the list of decoded persons
+     * @param filePath file to load from.
+     * @return List of decoded persons.
      */
     private static ArrayList<HashMap<String,String>> loadPersonsFromFile(String filePath) {
         final Optional<ArrayList<HashMap<String,String>>> successfullyDecoded = decodePersonsFromStrings(getLinesInFile(filePath));
@@ -780,7 +781,7 @@ public class AddressBook {
     /**
      * Saves all data to the file. Exits program if there is an error saving to file.
      *
-     * @param filePath file for saving
+     * @param filePath file for saving.
      */
     private static void savePersonsToFile(ArrayList<HashMap<String,String>> persons, String filePath) {
         final ArrayList<String> linesToWrite = encodePersonsToStrings(persons);
@@ -802,7 +803,7 @@ public class AddressBook {
     /**
      * Adds a person to the address book. Saves changes to storage file.
      *
-     * @param person to add
+     * @param person to add.
      */
     private static void addPersonToAddressBook(HashMap<String, String> person) {
         ALL_PERSONS.add(person);
@@ -810,10 +811,11 @@ public class AddressBook {
     }
 
     /**
-     * Deletes the specified person from the addressbook if it is inside. Saves any changes to storage file.
+     * Deletes the specified person from the addressbook if it is inside.
+     * Saves any changes to storage file.
      *
-     * @param exactPerson the actual person inside the address book (exactPerson == the person to delete in the full list)
-     * @return true if the given person was found and deleted in the model
+     * @param exactPerson the actual person inside the address book (exactPerson == the person to delete in the full list).
+     * @return True if the given person was found and deleted in the model.
      */
     private static boolean deletePersonFromAddressBook(HashMap<String,String> exactPerson) {
         final boolean changed = ALL_PERSONS.remove(exactPerson);
@@ -824,7 +826,7 @@ public class AddressBook {
     }
 
     /**
-     * Returns all persons in the address book
+     * Returns all persons in the address book.
      */
     private static ArrayList<HashMap<String,String>> getAllPersonsInAddressBook() {
         return ALL_PERSONS;
@@ -841,7 +843,7 @@ public class AddressBook {
     /**
      * Resets the internal model with the given data. Does not save to file.
      *
-     * @param persons list of persons to initialise the model with
+     * @param persons list of persons to initialise the model with.
      */
     private static void initialiseAddressBookModel(ArrayList<HashMap<String,String>> persons) {
         ALL_PERSONS.clear();
@@ -856,27 +858,27 @@ public class AddressBook {
      */
 
     /**
-     * Returns the given person's name
+     * Returns the given person's name.
      *
-     * @param person whose name you want
+     * @param person whose name you want.
      */
     private static String getNameFromPerson(HashMap<String, String> person) {
         return person.get(PERSON_DATA_NAME);
     }
 
     /**
-     * Returns given person's phone number
+     * Returns given person's phone number.
      *
-     * @param person whose phone number you want
+     * @param person whose phone number you want.
      */
     private static String getPhoneFromPerson(HashMap<String, String> person) {
         return person.get(PERSON_DATA_PHONE);
     }
 
     /**
-     * Returns given person's email
+     * Returns given person's email.
      *
-     * @param person whose email you want
+     * @param person whose email you want.
      */
     private static String getEmailFromPerson(HashMap<String, String> person) {
         return person.get(PERSON_DATA_EMAIL);
@@ -885,10 +887,10 @@ public class AddressBook {
     /**
      * Creates a person from the given data.
      *
-     * @param name of person
-     * @param phone without data prefix
-     * @param email without data prefix
-     * @return constructed person
+     * @param name of person.
+     * @param phone without data prefix.
+     * @param email without data prefix.
+     * @return Constructed person.
      */
     private static HashMap<String,String> makePersonFromData(String name, String phone, String email) {
         HashMap<String,String> person = new HashMap<>();
@@ -901,8 +903,8 @@ public class AddressBook {
     /**
      * Encodes a person into a decodable and readable string representation.
      *
-     * @param person to be encoded
-     * @return encoded string
+     * @param person to be encoded.
+     * @return Encoded string.
      */
     private static String encodePersonToString(HashMap<String,String> person) {
         return String.format(PERSON_STRING_REPRESENTATION,
