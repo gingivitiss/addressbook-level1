@@ -617,8 +617,9 @@ public class AddressBook {
         if (!isDisplayIndexValidForLastPersonListingView(targetVisibleIndex)) {
             return MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         }
+        final String phonenumber = extractPhoneNumber(commandArgs);
         final HashMap<String, String> targetInModel = getPersonByLastVisibleIndex(targetVisibleIndex);
-        return changePersonPhoneInAddressBook(targetInModel) ? getMessageForSuccessfulUpdate(targetInModel) // success
+        return changePersonPhoneInAddressBook(targetInModel, "" ) ? getMessageForSuccessfulUpdate(targetInModel) // success
                 : MESSAGE_PERSON_NOT_IN_ADDRESSBOOK; // not found
     }
 
@@ -638,6 +639,10 @@ public class AddressBook {
         return Integer.parseInt(args[0].trim());
     }
 
+    private static String extractPhoneNumber(String commandArgs) {
+        return "";
+    }
+
     /**
      * Gets message for successful update.
      *
@@ -648,8 +653,12 @@ public class AddressBook {
         return String.format(MESSAGE_UPDATEPHONE_PERSON_SUCCESS, getMessageForFormattedPersonData(person));
     }
 
-    private static boolean changePersonPhoneInAddressBook(HashMap<String, String> targetInModel) {
-        return false;
+    private static boolean changePersonPhoneInAddressBook(HashMap<String, String> targetInModel, String phone) {
+        HashMap<String, String> updatedPerson = makePersonFromData(getNameFromPerson(targetInModel),
+                phone, getEmailFromPerson(targetInModel));
+        addPersonToAddressBook(updatedPerson);
+        deletePersonFromAddressBook(targetInModel);
+        return true;
     }
 
     /*
