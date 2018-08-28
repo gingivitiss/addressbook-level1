@@ -623,14 +623,22 @@ public class AddressBook {
     }
 
     private static boolean isUpdatePersonArgsValid(String commandArgs) {
-        //split into two strings
-        //return: first string is a valid index && second string has number
+        String[] args = commandArgs.split("\\s");  //splits the string based on whitespace
+        return args[0] != null && isValidPhoneNumber(args[1]);
     }
 
+    private static boolean isValidPhoneNumber(String phoneNumber) {
+        return false;
+    }
+
+    /**
+     * Extracts the target's index from the raw update person args string.
+     *
+     * @param commandArgs
+     * @return
+     */
     private static int extractTargetUpdateIndex(String commandArgs) {
-        //take first index
-        //convert string to int
-        //return int
+        return Integer.parseInt(commandArgs.trim());
     }
 
     /**
