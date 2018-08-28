@@ -605,8 +605,9 @@ public class AddressBook {
     }
 
     /**
-     * Updates the persons phone number.
+     * Updates the identified person's phone number.
      *
+     * @param commandArgs full command args from the user.
      * @return Feedback display message for the operation result.
      */
     private static String executeUpdatePhone(String commandArgs) {
@@ -640,13 +641,21 @@ public class AddressBook {
     /**
      * Gets message for successful update.
      *
-     * @param person
-     * @return
+     * @param person the person that needs to be updated.
+     * @return successful phone update message.
      */
     private static String getMessageForSuccessfulUpdate(HashMap<String, String> person) {
         return String.format(MESSAGE_UPDATEPHONE_PERSON_SUCCESS + getMessageForFormattedPersonData(person));
     }
 
+    /**
+     * Changes the person's phone number in the addressbook.
+     * Makes a new 'person' and
+     *
+     * @param targetInModel
+     * @param phone
+     * @return
+     */
     private static boolean changePersonPhoneInAddressBook(HashMap<String, String> targetInModel, String phone) {
         HashMap<String, String> updatedPerson = makePersonFromData(getNameFromPerson(targetInModel),
                 phone, getEmailFromPerson(targetInModel));
