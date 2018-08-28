@@ -83,6 +83,7 @@ public class AddressBook {
     private static final String MESSAGE_STORAGE_FILE_CREATED = "Created new empty storage file: %1$s";
     private static final String MESSAGE_WELCOME = "Welcome to your Address Book!";
     private static final String MESSAGE_USING_DEFAULT_FILE = "Using default storage file : " + DEFAULT_STORAGE_FILEPATH;
+    private static final String MESSAGE_UPDATEPHONE_PERSON_SUCCESS = "UPDATED Name: %1$s, Phone: %2$s, Email: %3$s";
 
     // These are the prefix strings to define the data type of a command parameter
     private static final String PERSON_DATA_PREFIX_PHONE = "p/";
@@ -104,10 +105,11 @@ public class AddressBook {
     private static final String COMMAND_FIND_PARAMETERS = "KEYWORD [MORE_KEYWORDS]";
     private static final String COMMAND_FIND_EXAMPLE = COMMAND_FIND_WORD + " alice bob charlie";
 
-    private static final String COMMAND_PHONEUPDATE_WORD = "update phone";
-    private static final String COMMAND_PHONEUPDATE_DESC = "Updates person's phone number";
-    private static final String COMMAND_PHONEUPDATE_PARAMETERS = "NAME [NEW PHONE NUMBER]";
-    private static final String COMMAND_PHONEUPDATE_EXAMPLE = COMMAND_PHONEUPDATE_WORD + "John Doe p/1892039";
+    private static final String COMMAND_UPDATEPHONE_WORD = "update phone";
+    private static final String COMMAND_UPDATEPHONE_DESC = "Updates person's phone number identified by "
+            + "index number used in the last find/list call";
+    private static final String COMMAND_UPDATEPHONE_PARAMETERS = "INDEX [NEW PHONE_NUMBER]";
+    private static final String COMMAND_UPDATEPHONE_EXAMPLE = COMMAND_UPDATEPHONE_WORD + " 1 p/38290190";
 
     private static final String COMMAND_LIST_WORD = "list";
     private static final String COMMAND_LIST_DESC = "Displays all persons as a list with index numbers.";
@@ -397,6 +399,8 @@ public class AddressBook {
                 return getUsageInfoForAllCommands();
             case COMMAND_EXIT_WORD:
                 executeExitProgramRequest();
+            case COMMAND_UPDATEPHONE_WORD:
+                return executeUpdatePhone(commandArgs);
             default:
                 return getMessageForInvalidCommandInput(commandType, getUsageInfoForAllCommands());
         }
@@ -605,9 +609,38 @@ public class AddressBook {
      *
      * @return Feedback display message for the operation result.
      */
-    private static String executeUpdatePhone() {
-        //call updatePhone();
-        // returns successful update return getMessageForPhoneUpdate();
+    private static String executeUpdatePhone(String commandArgs) { //"1 phone no"
+        if (!isUpdatePersonArgsValid(commandArgs)) {
+            return getMessageForInvalidCommandInput(COMMAND_UPDATEPHONE_WORD, getUsageInfoForUpdateCommand());
+        }
+        final int targetVisibleIndex = extractTargetUpdateIndex(commandArgs);
+        if (!isDisplayIndexValidForLastPersonListingView(targetVisibleIndex)) {
+            return MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        }
+        final HashMap<String, String> targetInModel = getPersonByLastVisibleIndex(targetVisibleIndex);
+        return changePersonPhoneInAddressBook(targetInModel) ? getMessageForSuccessfulUpdate(targetInModel) // success
+                : MESSAGE_PERSON_NOT_IN_ADDRESSBOOK; // not found
+    }
+
+    private static boolean isUpdatePersonArgsValid(String commandArgs) {
+        //split into two strings
+        //return: first string is a valid index && second string has number
+    }
+
+    private static int extractTargetUpdateIndex(String commandArgs) {
+        //take first index
+        //convert string to int
+        //return int
+    }
+
+    /**
+     * Gets message for successful update.
+     *
+     * @param person
+     * @return
+     */
+    private static String getMessageForSuccessfulUpdate(HashMap<String, String> person) {
+        return String.format(MESSAGE_UPDATEPHONE_PERSON_SUCCESS, getMessageForFormattedPersonData(person));
     }
 
     /*
@@ -723,7 +756,6 @@ public class AddressBook {
         return latestPersonListingView.get(lastVisibleIndex - DISPLAYED_INDEX_OFFSET);
     }
 
-
     /*
      * ===========================================
      *             STORAGE LOGIC
@@ -801,7 +833,6 @@ public class AddressBook {
         }
     }
 
-
     /*
      * ================================================================================
      *        INTERNAL ADDRESS BOOK DATA METHODS
@@ -857,7 +888,6 @@ public class AddressBook {
         ALL_PERSONS.clear();
         ALL_PERSONS.addAll(persons);
     }
-
 
     /*
      * ===========================================
@@ -932,6 +962,7 @@ public class AddressBook {
         }
         return encoded;
     }
+
 
     /*
      * NOTE : =============================================================
@@ -1166,6 +1197,11 @@ public class AddressBook {
                 + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_EXIT_EXAMPLE);
     }
 
+    private static String getUsageInfoForUpdateCommand() {
+        return String.format(MESSAGE_COMMAND_HELP, COMMAND_UPDATEPHONE_WORD, COMMAND_UPDATEPHONE_DESC) + LS
+                + String.format(MESSAGE_COMMAND_HELP_PARAMETERS, COMMAND_UPDATEPHONE_PARAMETERS) + LS
+                + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_UPDATEPHONE_EXAMPLE) + LS;
+    }
 
     /*
      * ============================
