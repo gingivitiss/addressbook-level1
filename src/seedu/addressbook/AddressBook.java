@@ -105,11 +105,11 @@ public class AddressBook {
     private static final String COMMAND_FIND_PARAMETERS = "KEYWORD [MORE_KEYWORDS]";
     private static final String COMMAND_FIND_EXAMPLE = COMMAND_FIND_WORD + " alice bob charlie";
 
-    private static final String COMMAND_UPDATEPHONE_WORD = "update phone";
+    private static final String COMMAND_UPDATEPHONE_WORD = "updatephone";
     private static final String COMMAND_UPDATEPHONE_DESC = "Updates person's phone number identified by "
             + "index number used in the last find/list call";
     private static final String COMMAND_UPDATEPHONE_PARAMETERS = "INDEX [NEW PHONE_NUMBER]";
-    private static final String COMMAND_UPDATEPHONE_EXAMPLE = COMMAND_UPDATEPHONE_WORD + " 1 p/38290190";
+    private static final String COMMAND_UPDATEPHONE_EXAMPLE = COMMAND_UPDATEPHONE_WORD + " 1 38290190";
 
     private static final String COMMAND_LIST_WORD = "list";
     private static final String COMMAND_LIST_DESC = "Displays all persons as a list with index numbers.";
@@ -624,11 +624,7 @@ public class AddressBook {
 
     private static boolean isUpdatePersonArgsValid(String commandArgs) {
         String[] args = commandArgs.split("\\s");  //splits the string based on whitespace
-        return args[0] != null && isValidPhoneNumber(args[1]);
-    }
-
-    private static boolean isValidPhoneNumber(String phoneNumber) {
-        return false;
+        return args[0] != null && isPersonPhoneValid(args[1]);
     }
 
     /**
@@ -638,7 +634,8 @@ public class AddressBook {
      * @return
      */
     private static int extractTargetUpdateIndex(String commandArgs) {
-        return Integer.parseInt(commandArgs.trim());
+        String[] args = commandArgs.split("\\s");  //splits the string based on whitespace
+        return Integer.parseInt(args[0].trim());
     }
 
     /**
@@ -1160,6 +1157,7 @@ public class AddressBook {
                 + getUsageInfoForViewCommand() + LS
                 + getUsageInfoForDeleteCommand() + LS
                 + getUsageInfoForClearCommand() + LS
+                + getUsageInfoForUpdateCommand() + LS
                 + getUsageInfoForExitCommand() + LS
                 + getUsageInfoForHelpCommand();
     }
