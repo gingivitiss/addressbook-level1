@@ -128,21 +128,14 @@ public class AddressBook {
 
     private static final String DIVIDER = "===================================================";
 
-    private static final int PERSON_DATA_INDEX_NAME = 0;
-    private static final int PERSON_DATA_INDEX_PHONE = 1;
-    private static final int PERSON_DATA_INDEX_EMAIL = 2;
-
-    /* We use a HashMap to store details of a person.
+    /**
+     * We use a HashMap to store details of a person.
      * Each of the strings below are the data elements of a person.
      */
     private static final String PERSON_DATA_NAME = "name";
     private static final String PERSON_DATA_PHONE = "phone";
     private static final String PERSON_DATA_EMAIL = "email";
 
-    /**
-     * The number of data elements for a single person.
-     */
-    private static final int PERSON_DATA_COUNT = 3;
 
     /**
      * Offset required to convert between 1-indexing and 0-indexing.COMMAND_
@@ -221,13 +214,13 @@ public class AddressBook {
      */
 
     private static void showWelcomeMessage() {
-        ArrayList<String> messages = new ArrayList<String>(
+        ArrayList<String> messages = new ArrayList<>(
                 Arrays.asList(DIVIDER, DIVIDER, VERSION, MESSAGE_WELCOME, DIVIDER));
         showToUserMultiple(messages);
     }
 
     private static void showResultToUser(String result) {
-        ArrayList<String> messages = new ArrayList<String>(
+        ArrayList<String> messages = new ArrayList<>(
                 Arrays.asList(result, DIVIDER));
         showToUserMultiple(messages);
     }
