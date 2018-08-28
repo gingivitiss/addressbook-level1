@@ -914,8 +914,8 @@ public class AddressBook {
     /**
      * Encodes list of persons into list of decodable and readable string representations.
      *
-     * @param persons to be encoded
-     * @return encoded strings
+     * @param persons to be encoded.
+     * @return Encoded strings.
      */
     private static ArrayList<String> encodePersonsToStrings(ArrayList<HashMap<String,String>> persons) {
         final ArrayList<String> encoded = new ArrayList<>();
@@ -935,9 +935,8 @@ public class AddressBook {
     /**
      * Decodes a person from it's supposed string representation.
      *
-     * @param encoded string to be decoded
-     * @return if cannot decode: empty Optional
-     *         else: Optional containing decoded person
+     * @param encoded string to be decoded.
+     * @return If cannot decode, empty Optional, otherwise Optional containing decoded person.
      */
     private static Optional<HashMap<String,String>> decodePersonFromString(String encoded) {
         // check that we can extract the parts of a person from the encoded string
@@ -956,9 +955,8 @@ public class AddressBook {
     /**
      * Decodes persons from a list of string representations.
      *
-     * @param encodedPersons strings to be decoded
-     * @return if cannot decode any: empty Optional
-     *         else: Optional containing decoded persons
+     * @param encodedPersons strings to be decoded.
+     * @return If cannot decode, empty Optional, otherwise Optional containing decoded person.
      */
     private static Optional<ArrayList<HashMap<String, String>>> decodePersonsFromStrings(ArrayList<String> encodedPersons) {
         final ArrayList<HashMap<String,String>> decodedPersons = new ArrayList<>();
@@ -976,7 +974,7 @@ public class AddressBook {
      * Returns true if person data (email, name, phone etc) can be extracted from the argument string.
      * Format is [name] p/[phone] e/[email], phone and email positions can be swapped.
      *
-     * @param personData person string representation
+     * @param personData person string representation.
      */
     private static boolean isPersonDataExtractableFrom(String personData) {
         final String matchAnyPersonDataPrefix = PERSON_DATA_PREFIX_PHONE + '|' + PERSON_DATA_PREFIX_EMAIL;
@@ -988,10 +986,10 @@ public class AddressBook {
     }
 
     /**
-     * Extracts substring representing person name from person string representation
+     * Extracts substring representing person name from person string representation.
      *
-     * @param encoded person string representation
-     * @return name argument
+     * @param encoded person string representation.
+     * @return Name argument.
      */
     private static String extractNameFromPersonString(String encoded) {
         final int indexOfPhonePrefix = encoded.indexOf(PERSON_DATA_PREFIX_PHONE);
@@ -1002,10 +1000,10 @@ public class AddressBook {
     }
 
     /**
-     * Extracts substring representing phone number from person string representation
+     * Extracts substring representing phone number from person string representation.
      *
-     * @param encoded person string representation
-     * @return phone number argument WITHOUT prefix
+     * @param encoded person string representation.
+     * @return Phone number argument WITHOUT prefix.
      */
     private static String extractPhoneFromPersonString(String encoded) {
         final int indexOfPhonePrefix = encoded.indexOf(PERSON_DATA_PREFIX_PHONE);
@@ -1025,10 +1023,10 @@ public class AddressBook {
     }
 
     /**
-     * Extracts substring representing email from person string representation
+     * Extracts substring representing email from person string representation.
      *
-     * @param encoded person string representation
-     * @return email argument WITHOUT prefix
+     * @param encoded person string representation.
+     * @return email argument WITHOUT prefix.
      */
     private static String extractEmailFromPersonString(String encoded) {
         final int indexOfPhonePrefix = encoded.indexOf(PERSON_DATA_PREFIX_PHONE);
@@ -1048,9 +1046,9 @@ public class AddressBook {
     }
 
     /**
-     * Returns true if the given person's data fields are valid
+     * Returns true if the given person's data fields are valid.
      *
-     * @param person String array representing the person (used in internal data)
+     * @param person String array representing the person (used in internal data).
      */
     private static boolean isPersonDataValid(HashMap<String,String> person) {
         return isPersonNameValid(person.get(PERSON_DATA_NAME))
@@ -1067,9 +1065,9 @@ public class AddressBook {
      */
 
     /**
-     * Returns true if the given string as a legal person name
+     * Returns true if the given string as a legal person name.
      *
-     * @param name to be validated
+     * @param name to be validated.
      */
     private static boolean isPersonNameValid(String name) {
         return name.matches("(\\w|\\s)+");  // name is nonempty mixture of alphabets and whitespace
@@ -1077,9 +1075,9 @@ public class AddressBook {
     }
 
     /**
-     * Returns true if the given string as a legal person phone number
+     * Returns true if the given string as a legal person phone number.
      *
-     * @param phone to be validated
+     * @param phone to be validated.
      */
     private static boolean isPersonPhoneValid(String phone) {
         return phone.matches("\\d+");    // phone nonempty sequence of digits
@@ -1087,10 +1085,10 @@ public class AddressBook {
     }
 
     /**
-     * Returns true if the given string is a legal person email
+     * Returns true if the given string is a legal person email.
      *
-     * @param email to be validated
-     * @return whether arg is a valid person email
+     * @param email to be validated.
+     * @return Whether arg is a valid person email.
      */
     private static boolean isPersonEmailValid(String email) {
         return email.matches("\\S+@\\S+\\.\\S+"); // email is [non-whitespace]@[non-whitespace].[non-whitespace]
@@ -1181,8 +1179,8 @@ public class AddressBook {
     /**
      * Splits a source string into the list of substrings that were separated by whitespace.
      *
-     * @param toSplit source string
-     * @return split by whitespace
+     * @param toSplit source string.
+     * @return Split by whitespace.
      */
     private static ArrayList<String> splitByWhitespace(String toSplit) {
         return new ArrayList<>(Arrays.asList(toSplit.trim().split("\\s+")));
