@@ -83,7 +83,7 @@ public class AddressBook {
     private static final String MESSAGE_STORAGE_FILE_CREATED = "Created new empty storage file: %1$s";
     private static final String MESSAGE_WELCOME = "Welcome to your Address Book!";
     private static final String MESSAGE_USING_DEFAULT_FILE = "Using default storage file : " + DEFAULT_STORAGE_FILEPATH;
-    private static final String MESSAGE_UPDATEPHONE_PERSON_SUCCESS = "UPDATED Name: %1$s, Phone: %2$s, Email: %3$s";
+    private static final String MESSAGE_UPDATEPHONE_PERSON_SUCCESS = "UPDATED Name: ";
 
     // These are the prefix strings to define the data type of a command parameter
     private static final String PERSON_DATA_PREFIX_PHONE = "p/";
@@ -609,7 +609,7 @@ public class AddressBook {
      *
      * @return Feedback display message for the operation result.
      */
-    private static String executeUpdatePhone(String commandArgs) { //"1 phone no"
+    private static String executeUpdatePhone(String commandArgs) {
         if (!isUpdatePersonArgsValid(commandArgs)) {
             return getMessageForInvalidCommandInput(COMMAND_UPDATEPHONE_WORD, getUsageInfoForUpdateCommand());
         }
@@ -619,7 +619,7 @@ public class AddressBook {
         }
         final String phonenumber = extractPhoneNumber(commandArgs);
         final HashMap<String, String> targetInModel = getPersonByLastVisibleIndex(targetVisibleIndex);
-        return changePersonPhoneInAddressBook(targetInModel, "" ) ? getMessageForSuccessfulUpdate(targetInModel) // success
+        return changePersonPhoneInAddressBook(targetInModel, phonenumber) ? getMessageForSuccessfulUpdate(targetInModel) // success
                 : MESSAGE_PERSON_NOT_IN_ADDRESSBOOK; // not found
     }
 
@@ -635,12 +635,13 @@ public class AddressBook {
      * @return
      */
     private static int extractTargetUpdateIndex(String commandArgs) {
-        String[] args = commandArgs.split("\\s");  //splits the string based on whitespace
+        String[] args = commandArgs.split("\\s");
         return Integer.parseInt(args[0].trim());
     }
 
     private static String extractPhoneNumber(String commandArgs) {
-        return "";
+        String[] args = commandArgs.split("\\s");
+        return args[1];
     }
 
     /**
@@ -650,7 +651,7 @@ public class AddressBook {
      * @return
      */
     private static String getMessageForSuccessfulUpdate(HashMap<String, String> person) {
-        return String.format(MESSAGE_UPDATEPHONE_PERSON_SUCCESS, getMessageForFormattedPersonData(person));
+        return String.format(MESSAGE_UPDATEPHONE_PERSON_SUCCESS + getMessageForFormattedPersonData(person));
     }
 
     private static boolean changePersonPhoneInAddressBook(HashMap<String, String> targetInModel, String phone) {
