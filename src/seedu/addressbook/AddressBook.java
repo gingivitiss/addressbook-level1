@@ -658,7 +658,7 @@ public class AddressBook {
 
     /**
      * Returns the display string representation of the list of persons.
-     * @param persons
+     * @param persons List of people with data stored as a HashMap.
      */
     private static String getDisplayString(ArrayList<HashMap<String, String>> persons) {
         final StringBuilder messageAccumulator = new StringBuilder();
