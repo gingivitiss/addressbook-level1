@@ -104,6 +104,11 @@ public class AddressBook {
     private static final String COMMAND_FIND_PARAMETERS = "KEYWORD [MORE_KEYWORDS]";
     private static final String COMMAND_FIND_EXAMPLE = COMMAND_FIND_WORD + " alice bob charlie";
 
+    private static final String COMMAND_PHONEUPDATE_WORD = "update phone";
+    private static final String COMMAND_PHONEUPDATE_DESC = "Updates person's phone number";
+    private static final String COMMAND_PHONEUPDATE_PARAMETERS = "NAME [NEW PHONE NUMBER]";
+    private static final String COMMAND_PHONEUPDATE_EXAMPLE = COMMAND_PHONEUPDATE_WORD + "John Doe p/1892039";
+
     private static final String COMMAND_LIST_WORD = "list";
     private static final String COMMAND_LIST_DESC = "Displays all persons as a list with index numbers.";
     private static final String COMMAND_LIST_EXAMPLE = COMMAND_LIST_WORD;
@@ -593,6 +598,16 @@ public class AddressBook {
      */
     private static void executeExitProgramRequest() {
         exitProgram();
+    }
+
+    /**
+     * Updates the persons phone number.
+     *
+     * @return Feedback display message for the operation result.
+     */
+    private static String executeUpdatePhone() {
+        //call updatePhone();
+        // returns successful update return getMessageForPhoneUpdate();
     }
 
     /*
@@ -1159,11 +1174,11 @@ public class AddressBook {
      */
 
     /**
-     * Removes sign(p/, d/, etc) from parameter string
+     * Removes sign(p/, d/, etc) from parameter string.
      *
-     * @param s  Parameter as a string
-     * @param sign  Parameter sign to be removed
-     * @return  string without the sign
+     * @param s  Parameter as a string.
+     * @param sign  Parameter sign to be removed.
+     * @return  String without the sign.
      */
     private static String removePrefixSign(String s, String sign) {
         return s.replace(sign, "");
