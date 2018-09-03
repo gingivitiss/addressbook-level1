@@ -649,8 +649,8 @@ public class AddressBook {
     }
 
     /**
-     * Changes the person's phone number in the addressbook.
-     * Makes a new 'person' and
+     * Changes the person's phone number in the address book.
+     * Makes a new 'person' and replaces it with updated details of person.
      *
      * @param targetInModel
      * @param phone
